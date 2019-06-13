@@ -17,19 +17,10 @@ instance Show Form where
     show (I a b) = show a ++ " -> " ++ show b
     show N       = "null"
 
--- the type for the premisses of SC rules
-type SCpremiss = [([Form], Form)]
--- the type for the conclusion of SC rules
-type SCconcl = ([Form], Form)
--- the type for the premisses of ND rules
-type NDpremiss = ([Form], [Form])
--- the type for the comclusion of ND rules
-type NDconcl = Form
-
 -- the type of a SC rule
-type RuleSC = (SCpremiss, SCconcl)
+type RuleSC = ([([Form], Form)], ([Form], Form))
 -- the type of a ND rule
-type RuleND = (NDpremiss, NDconcl)
+type RuleND = (([Form], [Form]), Form)
 
 -- filters 'null' aka contexts
 filterN :: [Form] -> [Form]
@@ -37,7 +28,6 @@ filterN x = filter (/=N) x
 -- auxilary functions to match types
 mapSnd x = map snd x
 mapFst x = concat(map fst x)
-
 
 -- translates right SC rules to ND introduction rules
 intr :: RuleSC -> RuleND
